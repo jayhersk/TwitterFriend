@@ -7,10 +7,10 @@ import json
 import time
 
 #Twitter API credentials
-consumer_key = "uO1tWq8VzLVlpIdv2xIdEZguy"
-consumer_secret = "ch6vGSDHroxrD7v6NAmhAmrUOZ6DXgLsot3HZ84grSd0VB4WSc"
-access_key = "519923288-jXyVgPgjaRCqEeu6kkfp33pgGB1nG5PUnYt0iDVn"
-access_secret = "6QO8xSPSCUE3EiSSHZdbR2X5M5hxLAMbUVTtUQYvAnwbq"
+consumer_key = ""
+consumer_secret = ""
+access_key = ""
+access_secret = ""
 
 def get_friends(screen_name):
 
