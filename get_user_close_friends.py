@@ -63,10 +63,12 @@ def get_friends(screen_name):
     data['followers'] = followers
     data['friends'] = friends
 
-    # write the json file
-    with open(screen_name + '_network.json', 'w') as outfile:
-        json.dump(data, outfile, indent=2)
+    return data
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
-    get_friends("jayhersk")
+    data = get_friends("jayhersk")
+
+    # write the json file
+    with open(screen_name + '_network.json', 'w') as outfile:
+        json.dump(data, outfile, indent=2)

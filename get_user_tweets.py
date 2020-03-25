@@ -145,10 +145,12 @@ def get_all_tweets(screen_name):
 	data['retweets'] = retweets
 	data['replies'] = replies
 
-	# write the json file
-	with open(screen_name + '_tweets.json', 'w') as outfile:
-		json.dump(data, outfile, indent=2)
+	return data
 
 if __name__ == '__main__':
 	#pass in the username of the account you want to download
-	get_all_tweets("jayhersk")
+	data = get_all_tweets("jayhersk")
+
+	# write the json file
+	with open(screen_name + '_tweets.json', 'w') as outfile:
+		json.dump(data, outfile, indent=2)
