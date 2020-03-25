@@ -17,7 +17,6 @@
 # Saves result as a json file (for now)
 
 import tweepy #https://github.com/tweepy/tweepy
-import csv
 import json
 import re
 import string
@@ -147,7 +146,7 @@ def get_all_tweets(screen_name):
 	data['replies'] = replies
 
 	# write the json file
-	with open(screen_name + '.json', 'w') as outfile:
+	with open(screen_name + '_tweets.json', 'w') as outfile:
 		json.dump(data, outfile, indent=2)
 
 if __name__ == '__main__':
