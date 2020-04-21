@@ -49,10 +49,41 @@ if __name__ == '__main__':
     friends_path = os.path.join(username, username + "_network.json")
     if not os.path.exists(friends_path):
         # pass in the username of the account you want to download
-        data = get_user_close_friends.get_friends("jayhersk")
+        data = get_user_close_friends.get_friends(username)
 
         # write the json file
         with open(friends_path, 'w') as outfile:
             json.dump(data, outfile, indent=2)
 
     # Create directories for friend data
+    friend_data_path = os.path.join(username, 'friend_data')
+    if not os.path.exists(friend_data_path):
+        os.makedirs(friend_data_path)
+
+    friend_score_path = os.path.join(username, 'friend_wellness')
+    if not os.path.exists(friend_score_path):
+        os.makedirs(friend_score_path)
+
+    # Get the list of friends:
+    friend_list = []
+    with open(friends_path) as network_json:
+        data = json.load(network_json)
+        friend_list = data['close_friends']
+
+    # For each friend, scrape their tweets and save the data to
+    # 'username/friend_data/friendname.json'
+    for friendname in friend_list:
+        filepath = os.path.join(friend_data_path, friendname + '.json')
+        if not os.path.exists(filepath):
+            data = get_user_tweets.get_all_tweets(friendname)
+            with open(filepath, 'w') as outfile:
+                json.dump(data, outfile, indent=2)
+
+    # For each friend, calculate their wellness scores and save the data to
+    # 'username/friend_wellness/friendname.json'
+    for friend_data_json in os.listdir(friend_data_path):
+        pass
+
+    # For each file in friend_wellness, save list to '/username/friend_alerts.json'
+    for friend_wellness_json in os.listdir(friend_score_path):
+        pass

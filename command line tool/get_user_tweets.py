@@ -114,6 +114,7 @@ def get_all_tweets(screen_name):
 	retweets = []
 	replies = []
 
+	# TODO full text of the tweet is not there
 	for tweet in alltweets:
 
 		tweet_info = {}
@@ -152,5 +153,5 @@ if __name__ == '__main__':
 	data = get_all_tweets("jayhersk")
 
 	# write the json file
-	with open(screen_name + '_tweets.json', 'w') as outfile:
+	with open('jayhersk' + '.json', 'w') as outfile:
 		json.dump(data, outfile, indent=2)
