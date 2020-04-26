@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TwitterFriend</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../static/css/main.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+    </script>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+<div id="TwitterFriend">
+  <input name="login_elem" type="hidden" value="{{first_login}}" ref="login_elem" />
+
+  <!-- Header -->
+  <div class="header">
+    <h1 class="header_title text-center">TwitterFriend</h1>
+    <p class="header_copy text-center">Reminders to check in on your friends when they are stressed.</p>
+  </div>
+
+  <!-- Login button -->
+  <div class="login_button">
+    <a href="{{ loginout_url }}" class="btn btn-lg btn-primary btn-block text-uppercase">
+      {% if username == '' %}
+      login
+      {% else %}
+      logout
+      {% endif %}
+    </a><br>
+  </div>
+
+  <!-- Logged in content: -->
+  {% if username != '' %}
+
+  <p>HI</p>
+
+  <!-- Note: check session variable, then Vue variable because we want message to be temporary.  -->
+  {% if first_login %}
+  <div v-if="firstLogin">
+
+  </div>
+  {% endif %}
+
+  <!-- End if logged in content -->
+  {% endif %}
+
+</div> <!-- End TwitterFriend Vue Div -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="static/js/index.js"></script>
+
+</body>
+
+</html>

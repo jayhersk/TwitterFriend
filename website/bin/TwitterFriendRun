@@ -1,0 +1,16 @@
+#!/bin/bash
+# TwitterFriendRun
+#
+# Automate setting environment variables running flask utility.
+
+# Set FLASK_DEBUG, FLASK_APP and TWITTERFRIEND_SETTINGS environment variables
+export FLASK_DEBUG=True
+export FLASK_APP=TwitterFriend
+export TWITTERFRIEND_SETTINGS=config.py
+
+# TODO temporary
+export OAUTHLIB_INSECURE_TRANSPORT=1
+
+# Run the development server on port 8000
+flask run --host 0.0.0.0 --port 8000
+echo "flask run --host 0.0.0.0 --port 8000"

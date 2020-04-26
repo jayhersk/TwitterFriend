@@ -1,0 +1,5 @@
+REST API Specification:
+
+URL:                Method:    Action:
+
+EXAMPLE DATA:
