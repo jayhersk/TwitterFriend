@@ -21,47 +21,88 @@
 </head>
 
 <body>
+<div class="container">
 <div id="TwitterFriend">
-  <input name="login_elem" type="hidden" value="{{first_login}}" ref="login_elem" />
 
   <!-- Header -->
-  <div class="header">
-    <h1 class="header_title text-center">TwitterFriend</h1>
-    <p class="header_copy text-center">Reminders to check in on your friends when they are stressed.</p>
+  <div class="row justify-content-center">
+    <input name="login_elem" type="hidden" value="{{first_login}}" ref="login_elem" />
+    <input name="login_name" type="hidden" value="{{username}}" ref="login_name" />
+
+    <div class="header">
+      <h1 class="header_title text-center mt-3">TwitterFriend 🤖💖</h1>
+      <p class="header_copy text-center">Reminders to check in on your friends when they are stressed.</p>
+    </div>
   </div>
 
   <!-- Login button -->
-  <div class="login_button">
-    <a href="{{ loginout_url }}" class="btn btn-lg btn-primary btn-block text-uppercase">
-      {% if username == '' %}
-      login
-      {% else %}
-      logout
-      {% endif %}
-    </a><br>
+  <div class="row justify-content-center">
+    <div class="login_button text-center">
+      <a href="{{ loginout_url }}" class="btn btn-sm btn-outline-primary text-uppercase mb-3">
+        {% if username == '' %}
+        login
+        {% else %}
+        logout
+        {% endif %}
+      </a><br>
+    </div>
   </div>
 
   <!-- Logged in content: -->
   {% if username != '' %}
 
-  <h5 class="header_copy text-center">Hi <b>{{ fullname }}!</b></h5>
-  <p class="header_copy text-center">Press the button below to start gathering your friends and analyzing their data.</p>
 
-  <!-- Note: check session variable, then Vue variable because we want message to be temporary.  -->
-  {% if first_login %}
-  <div v-if="firstLogin">
-
+  <div id="welcome" class="text-center" v-if="showWelcome">
+    <h5 class="header_copy text-center">Hi <b>{{ fullname }}!</b></h5>
+    <p class="header_copy text-center">Press the button below to start gathering your friends and analyzing their data.</p>
+  
+    <button id="start_btn" v-on:click="fetchData" class="btn btn-lg btn-primary mb-4">
+      🌟 Get started! 🌟
+    </button>
   </div>
-  {% endif %}
 
-  <button id="start_btn" v-on:click="getFriendList" class="btn btn-md btn-primary btn-block">
-    Get started!
-  </button>
+  <div id="loading" class="container text-center mb-3" v-if="showSpinner">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p class="text-primary">Fetching friend list...</p>
+  </div>
+
+  <table class="table table-responsive-md" v-if="showTable">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Name</th>
+        <th scope="col">Doing Ok?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(friend, index) in friends" :key="index">
+        <td class="text-muted"><em>${ friend.f_username }</em></td>
+        <td>${ friend.f_fullname }</td>
+        
+        <td>
+          <span v-if="friend.checked == Null">Waiting...</span>
+          <span v-else>Already checked!</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+    <!-- Note: check session variable, then Vue variable because we want message to be temporary.  -->
+    {% if first_login %}
+    <div v-if="firstLogin">
+  
+    </div>
+    {% endif %}
 
   <!-- End if logged in content -->
   {% endif %}
 
-</div> <!-- End TwitterFriend Vue Div -->
+<!--/div-->
+</div> <!-- End Row/Twitter Friend div -->
+</div> <!-- End container div -->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -4,7 +4,7 @@ CREATE TABLE users(
 
   /* UNIQUE username -> index on username, efficient lookup */
   username        VARCHAR(40) UNIQUE,
-  fullname        VARCHAR(40) NOT NULL,
+  fullname        VARCHAR(50) NOT NULL,
 
   token           VARCHAR(128),
   token_secret    VARCHAR(128),
@@ -15,6 +15,7 @@ CREATE TABLE users(
 CREATE TABLE user_friends(
   fid         INTEGER PRIMARY KEY AUTOINCREMENT,
   f_username  VARCHAR(40),
+  f_fullname  VARCHAR(50),
 
   uid         INTEGER,
   username    VARCHAR(40),

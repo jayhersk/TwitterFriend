@@ -7,15 +7,46 @@ var app = new Vue({
             logname: "",
             firstLogin: true,
 
-            friend_usernames: []
+            showWelcome: false,
+            showTable: false,
+            showSpinner: false,
+
+            friends: [],
         };
     }, // End data
 
     mounted() {
-        
+        console.log('mounted')
+
+        // Get first login value
+        let loginString = this.$refs.login_elem.value;
+        if (loginString == "True") {
+            this.firstLogin = true;
+        }
+        else {
+            this.firstLogin = false;
+        }
+
+        // Get first login name
+        let userString = this.$refs.login_name.value;
+
+        if (!this.firstLogin && userString != "") {
+            this.fetchData();
+        }
+        else {
+            this.showWelcome = true;
+        }
     }, // End on mounted
 
     methods: {
+
+        fetchData: function() {
+            this.showWelcome = false;
+            this.showTable = true;
+            this.showSpinner = true;
+
+            this.getFriendList();
+        },
 
         getFriendList: function() {
             var self = this;
@@ -24,9 +55,9 @@ var app = new Vue({
             .then(function (response) {
                 self.logname = response.data.logname;
                 response.data.friends.forEach(function (friend) {
-                    self.friend_usernames.push(friend.f_username)
+                    self.friends.push(friend)
                 });
-                console.log(self.friend_usernames);
+                self.showSpinner = false;
               })
             .catch(error => console.log(error))
         }

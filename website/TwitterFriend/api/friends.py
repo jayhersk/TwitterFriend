@@ -31,6 +31,8 @@ def friend_list():
 
     # If we don't have friends yet, scrape the data from twitter and put it in the database
     if not model_has_friends_for(logname):
+
+        # get list of friend username/ fullname pairs
         friend_username_list = get_friends(logname)
         model_add_friend_list(logname, friend_username_list)
 
@@ -66,11 +68,14 @@ def get_friends(screen_name):
         try:
             user = next(users)
         except tweepy.TweepError:
+            print("Reached API limit. Sleeping now.")
             time.sleep(60*15)
             user = next(users)
         except StopIteration:
             break
-        followers.append(user.screen_name)
+
+        # Append username/ fullname pair to list:
+        followers.append((user.screen_name, user.name))
 
     print("Done getting user followers. Total: " + str(len(followers)))
     print("Getting user friends...")
@@ -82,11 +87,14 @@ def get_friends(screen_name):
         try:
             user = next(users)
         except tweepy.TweepError:
+            print("Reached API limit. Sleeping now.")
             time.sleep(60*15)
             user = next(users)
         except StopIteration:
             break
-        friends.append(user.screen_name)
+
+        # Append username/ fullname pair to list:
+        friends.append((user.screen_name, user.name))
 
     print("Done getting user friends. Total: " + str(len(friends)))
     print("Getting close friends...")
@@ -99,4 +107,5 @@ def get_friends(screen_name):
     data['followers'] = followers
     data['friends'] = friends
 
+    # Return list of username/ fullname pairs
     return close_friends

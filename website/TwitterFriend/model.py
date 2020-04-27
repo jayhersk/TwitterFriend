@@ -87,12 +87,12 @@ def model_has_friends_for(username):
 def model_get_friends(username):
     """ Return the list of friends from the database """
     cursor = get_db().cursor()
-    cursor.execute('SELECT fid, f_username, stressed, checked \
+    cursor.execute('SELECT fid, f_username, f_fullname, stressed, checked \
                     FROM user_friends WHERE username=?', (username,))
     return cursor.fetchall()
 
 def model_add_friend_list(username, f_username_list):
-    """ Given a username and list of friend username strings, add
+    """ Given a username and list of friend username/ fullname PAIRS, add
         all as database entries.
     """
     cursor = get_db().cursor()
@@ -100,8 +100,8 @@ def model_add_friend_list(username, f_username_list):
 
     uid = cursor.fetchone()['uid']
 
-    for friend_name in f_username_list:
-        model_add_friend(username, uid, friend_name)
+    for pair in f_username_list:
+        model_add_friend(username, uid, pair[0], pair[1])
 
 
     cursor.execute('UPDATE users SET num_friends=? WHERE username=?', 
@@ -109,9 +109,9 @@ def model_add_friend_list(username, f_username_list):
 
     return
 
-def model_add_friend(username, uid, friend_username):
+def model_add_friend(username, uid, friend_username, friend_fullname):
     """ Add a friend into the database (if it doesn't already exist) """
     cursor = get_db().cursor()
-    cursor.execute('INSERT INTO user_friends (f_username, username, uid) VALUES (?,?,?)', 
-                   (friend_username, username, uid))
+    cursor.execute('INSERT INTO user_friends (f_username, f_fullname, username, uid) VALUES (?,?,?,?)', 
+                   (friend_username, friend_fullname, username, uid))
     return
