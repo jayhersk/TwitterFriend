@@ -16,6 +16,7 @@ def show_index():
     # put username (or dummy) in context for rendering login/logout
     if 'username' in flask.session:
         context['username'] = flask.session['username']
+        context['fullname'] = flask.session['fullname']
         context['loginout_url'] = flask.url_for('api_logout')
 
         if 'first_login' in flask.session:

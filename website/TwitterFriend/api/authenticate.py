@@ -8,11 +8,7 @@ from flask import request
 import TwitterFriend
 from TwitterFriend.model import model_login_user
 
-# TODO Move to new file
-consumer_key = "H47SnDAQB2LZhowA30iYM5R0N"
-consumer_secret = "wUCPwf5Ibk26a61ySXehZjWNwZ2C5zDsC2kXHlpHvFPkQKhn3D"
-
-@TwitterFriend.app.route('/api/login')
+@TwitterFriend.app.route('/api/login/')
 def api_login():
     """ Initiate Twitter oauth login process. """
 
@@ -20,14 +16,17 @@ def api_login():
     if 'username' in flask.session:
         return flask.redirect(flask.url_for('show_index'))
 
+    # Get keys
+    consumer_key = TwitterFriend.app.config['API_KEY']
+    consumer_secret = TwitterFriend.app.config['API_SECRET']
+
     # create auth handler and pass callback url
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, flask.url_for('api_oauth_callback', _external=True))
     url = auth.get_authorization_url()
     flask.session['request_token'] = auth.request_token
-    return flask.redirect(url)
 
     # redirect user to Twitter for authentication
-    return flask.redirect(authorization_url)
+    return flask.redirect(url)
 
 @TwitterFriend.app.route('/api/oauth_callback')
 def api_oauth_callback():
@@ -42,7 +41,11 @@ def api_oauth_callback():
 
     # Get login request token
     request_token = flask.session['request_token']
-    del flask.session['request_token']
+    # del flask.session['request_token']
+
+    # Get keys
+    consumer_key = TwitterFriend.app.config['API_KEY']
+    consumer_secret = TwitterFriend.app.config['API_SECRET']
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, flask.url_for('api_oauth_callback', _external=True))
     auth.request_token = request_token
@@ -66,6 +69,8 @@ def api_oauth_callback():
     flask.session["first_login"] = model_login_user(flask.session['username'], 
                                                     flask.session['fullname'], user_token)
 
+    flask.session.modified = True
+
     if flask.session["first_login"]:
         pass
 
@@ -83,7 +88,7 @@ def logout():
         flask.session.pop('username')
     return
 
-@TwitterFriend.app.route('/api/logout')
+@TwitterFriend.app.route('/api/logout/')
 def api_logout():
     """ Endpoint for standard logout. """
 

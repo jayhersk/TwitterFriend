@@ -1,5 +1,20 @@
 REST API Specification:
 
-URL:                Method:    Action:
+URL:                    Method:    Action:
+
+/api/friends/           GET        Return list of friends for the logged in user
 
 EXAMPLE DATA:
+
+GET /api/friends/:
+{
+    "friends":
+    [
+        {
+            "fid": 1,
+            "f_username": "MyFriend"
+            "url": "/api/f/1/"
+        }
+    ],
+    "url": "/api/friends/"
+}

@@ -49,7 +49,6 @@ def model_login_user(username, fullname, credentials):
 
     cursor = get_db().cursor()
     if user_exists(username):
-
         # Update fullname, tokens in DB
         cursor.execute('UPDATE users SET token=?, token_secret=?, \
                             fullname=? WHERE username=?', 
@@ -75,3 +74,44 @@ def user_exists(username):
     cursor = get_db().cursor()
     cursor.execute('SELECT uid FROM users WHERE username=?', (username,))
     return len(cursor.fetchall()) == 1
+
+def model_has_friends_for(username):
+    """ Check if we have the list of friends for a given user """
+    cursor = get_db().cursor()
+    cursor.execute('SELECT num_friends FROM users WHERE username=?', (username,))
+    response = cursor.fetchone()
+    if response == None:
+        return False
+    return response['num_friends'] != None
+
+def model_get_friends(username):
+    """ Return the list of friends from the database """
+    cursor = get_db().cursor()
+    cursor.execute('SELECT fid, f_username, stressed, checked \
+                    FROM user_friends WHERE username=?', (username,))
+    return cursor.fetchall()
+
+def model_add_friend_list(username, f_username_list):
+    """ Given a username and list of friend username strings, add
+        all as database entries.
+    """
+    cursor = get_db().cursor()
+    cursor.execute('SELECT uid FROM users WHERE username=?', (username,))
+
+    uid = cursor.fetchone()['uid']
+
+    for friend_name in f_username_list:
+        model_add_friend(username, uid, friend_name)
+
+
+    cursor.execute('UPDATE users SET num_friends=? WHERE username=?', 
+                   (len(f_username_list), username))
+
+    return
+
+def model_add_friend(username, uid, friend_username):
+    """ Add a friend into the database (if it doesn't already exist) """
+    cursor = get_db().cursor()
+    cursor.execute('INSERT INTO user_friends (f_username, username, uid) VALUES (?,?,?)', 
+                   (friend_username, username, uid))
+    return

@@ -9,11 +9,16 @@ import os
 APPLICATION_ROOT = '/'
 
 # Secret key for encrypting cookies
-SECRET_KEY = b'Y\xde\x15\xf0!\x04\r\x9elAo\xbb"\xa4!\xe3\xefc\x80Iba\xe62'  # noqa: E501  pylint: disable=line-too-long
-SESSION_COOKIE_NAME = 'login'
+SECRET_KEY = b"[EL'\xfe\x0e\xd3\x82\xf0\x99S\x01{\x8f\xfe\t\xf0\xeb\xf4$\xf9\xf8\xefp"  # noqa: E501  pylint: disable=line-too-long
+SESSION_COOKIE_NAME = 'TwitterFriend'
 
 # Database file is var/TwitterFriend.sqlite3
 DATABASE_FILENAME = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
     'var', 'TwitterFriend.sqlite3'
 )
+
+# Twitter Application API Keys:
+# Access with TwitterFriend.app.config['API_KEY']
+API_KEY = "H47SnDAQB2LZhowA30iYM5R0N"
+API_SECRET = "wUCPwf5Ibk26a61ySXehZjWNwZ2C5zDsC2kXHlpHvFPkQKhn3D"

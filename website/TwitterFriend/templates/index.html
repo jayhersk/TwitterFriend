@@ -44,7 +44,8 @@
   <!-- Logged in content: -->
   {% if username != '' %}
 
-  <p>HI</p>
+  <h5 class="header_copy text-center">Hi <b>{{ fullname }}!</b></h5>
+  <p class="header_copy text-center">Press the button below to start gathering your friends and analyzing their data.</p>
 
   <!-- Note: check session variable, then Vue variable because we want message to be temporary.  -->
   {% if first_login %}
@@ -52,6 +53,10 @@
 
   </div>
   {% endif %}
+
+  <button id="start_btn" v-on:click="getFriendList" class="btn btn-md btn-primary btn-block">
+    Get started!
+  </button>
 
   <!-- End if logged in content -->
   {% endif %}

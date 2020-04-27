@@ -9,4 +9,4 @@ def forbidden_403():
 		Usually used on API endpoints """
 	context = { 'message': 'Forbidden',
 				'status_code': 403}
-	return flask.jsonify(context), 403
+	return flask.jsonify(**context), 403
