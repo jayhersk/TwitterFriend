@@ -40,6 +40,10 @@ We perform the above three analysis on a user's Tweets, Retweets,and Replies, th
 ### Experimental Features:
 <a name="exp"/>
 
+The file `command line tool/analyze_user_wellness.ipynb` also contains additional code to classify a month as 'stressed' or 'not stressed'. More documentation is included in the file.
+
+The rest of the folder `command line tool` contains a protoype command line version of the twitter scraping and analysis code.
+
 ### Running Website Locally:
 <a name="run-local"/>
 
