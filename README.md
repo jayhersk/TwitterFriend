@@ -19,9 +19,9 @@ Live Website: http://twitter-friend.jayl.in/
 ### Project Motivation:
 <a name="motiv"/>
 
-In this project, we developed a website that serves as a reminder to take care of your friends by monitoring your friends’ mental state by analyzing their post sentiment and other behavioral cues on social media. This project was inspired by the paper “Predicting Depression via Social Media” authored by De Choudhury et al. De Choudhury et al. identify features of a user's Twitter profile and use create a classify to predict if someone has been diagnosed with clinical depression within the past year, before the reported onset.
+In this project, we developed a website that serves as a reminder to take care of your friends by monitoring your friends’ mental state by analyzing their post sentiment and other behavioral cues on social media. It's easy to miss out a friend’s content on Twitter because of the volume of content and algorithmic filtering, instead, a bot can monitor them and prompt the user to provide social or emotional support if needed. This project was inspired by the paper “Predicting Depression via Social Media” authored by De Choudhury et al. De Choudhury et al. identify features of a user's Twitter profile and use create a classify to predict if someone has been diagnosed with clinical depression within the past year, before the reported onset.
 
-Additionally, motivated by the paper “Modeling Stress with Social Media Around Incidents of Gun Violence on College Campuses” (Saha & De Choudhury), we thought that detecting stress might be a good alternative. Stress is defined as “a psychological reaction that occurs when an individual perceives that environmental demands exceed his or her adaptive capacity” (Selye, 1956). Given the current global COVID-19 pandemic, we hope our project could help alleviate the stress induced by the period of extreme social distancing. 
+Additionally, motivated by the paper “Modeling Stress with Social Media Around Incidents of Gun Violence on College Campuses” (Saha & De Choudhury), we thought that detecting stress might be a good alternative. Stress is defined as “a psychological reaction that occurs when an individual perceives that environmental demands exceed his or her adaptive capacity” (Selye, 1956). Given the current global COVID-19 pandemic, we hope our project could help alleviate the stress induced by the period of extreme social distancing.
 
 ### Wellness Scores:
 <a name="well"/>
@@ -36,11 +36,6 @@ We perform the above three analysis on a user's Tweets, Retweets,and Replies, th
 
 1. If the wellness score for the most recent active month is higher than 0.2 standard deviations above the average wellness score for all active months.
 2. If the wellness score has continuously increased for the previous four active months.
-
-### Interface Description:
-<a name="desc"/>
-
-Chrome extension called “TwitterFriend” that serves as reminders to check in on your friends when they are stressed. Basically, it shows you a list of your friends’ names and their corresponding wellness statuses. If a friend is doing well lately, then his or her wellness status would be “😄 Doing ok! 😄”. On the other hand, if a friend is not doing well lately, then his or her wellness status would be “😰Seems stressed😰” with a red highlight on the text. The motivation behind this project is to encourage users to care about their friends’ wellness and prompt them to reach out to their friends if they are stressed out, given how easy it is to miss out a friend’s content on Twitter because of the algorithm. 
 
 ### Experimental Features:
 <a name="exp"/>
@@ -74,3 +69,24 @@ chmod 755 TwitterFriendRun
 bin/TwitterFriendDB create
 bin/TwitterFriendRun
 ```
+
+### Interface Description:
+<a name="desc"/>
+
+A full demo video can be found at this link: https://youtu.be/RBC5JVvvieM
+
+Our website “TwitterFriend” that serves as a reminder to check in on your friends when they are stressed. First, a user logs 
+in with their Twitter account:
+
+![Login](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/01_loginScreen.png?raw=true)
+![Auth](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/02_authorizeTwitter.png?raw=true)
+
+Once a user is logged in, they start pulling their list of mutual Twitter followers and processing their data.
+
+![Start](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/03_startScreen.png?raw=true)
+![Load](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/04_getFriendList.png?raw=true)
+![Loading](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/05_loadingFriendTweets.png?raw=true)
+
+Finally, the user's friends are classified as stressed or not stressed based on their wellness scores.
+
+![Scores](https://github.com/jayhersk/si660/blob/master/demo%20and%20screenshots/06_classifyFriends.png?raw=true)
