@@ -1,6 +1,10 @@
 # si660
 
+#### Table of Contents  
+[Running Website Locally](#run-local)   
+   
 ### Running website locally:
+<a name="run-local"/>
 
 1. Set up python virtual environment in website directory
 ```
