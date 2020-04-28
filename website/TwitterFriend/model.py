@@ -6,6 +6,8 @@ import datetime
 import TwitterFriend
 import json
 
+######################################################
+
 def dict_factory(cursor, row):
     """
     Convert database row objects to a dictionary.
@@ -66,6 +68,9 @@ def model_login_user(username, fullname, credentials):
 
     return
 
+######################################################
+## USER DATABASE FUNCTIONS:
+
 def user_exists(username):
     """ Check if user exists in database.
 
@@ -74,6 +79,9 @@ def user_exists(username):
     cursor = get_db().cursor()
     cursor.execute('SELECT uid FROM users WHERE username=?', (username,))
     return len(cursor.fetchall()) == 1
+
+######################################################
+## FRIEND LIST DATABASE FUNCTIONS:
 
 def model_has_friends_for(username):
     """ Check if we have the list of friends for a given user """
@@ -115,3 +123,64 @@ def model_add_friend(username, uid, friend_username, friend_fullname):
     cursor.execute('INSERT INTO user_friends (f_username, f_fullname, username, uid) VALUES (?,?,?,?)', 
                    (friend_username, friend_fullname, username, uid))
     return
+
+def model_get_friend_data(username, fid):
+    """Get all data for one friend"""
+    cursor = get_db().cursor()
+    cursor.execute('SELECT f_username, f_fullname, stressed, checked \
+                    FROM user_friends WHERE username=? AND fid=?', (username, fid))
+    return cursor.fetchone()
+
+def model_does_friend_need_update(username, fid):
+    cursor = get_db().cursor()
+    cursor.execute('SELECT f_username, f_fullname, stressed, checked \
+                    FROM user_friends WHERE username=? AND fid=?', (username, fid))
+
+    data = cursor.fetchone()
+    if data['stressed'] == None:
+        return True
+    elif data['checked'] != None:
+        checked_time = datetime.datetime.strptime(data['checked'], '%Y-%m-%d %H:%M:%S.%f')
+        time_diff = datetime.datetime.now() - checked_time
+        if time_diff.days > 7:
+            return True
+        else:
+            return False
+    return False
+
+######################################################
+## FRIEND DATA DATABASE FUNCTIONS
+
+def model_has_friend_scores(fid):
+    cursor = get_db().cursor()
+    cursor.execute('SELECT month_name FROM scores WHERE fid=?', (fid,))
+    return len(cursor.fetchall()) >= 1
+
+def model_set_friend_stress(fid, stressed, checked):
+    cursor = get_db().cursor()
+    cursor.execute('UPDATE user_friends SET stressed=?, checked=? WHERE fid=?', 
+                   (stressed, checked, fid))
+
+    return
+
+def model_save_wellness_scores(fid, wellness_scores):
+    cursor = get_db().cursor()
+    for key in wellness_scores.keys():
+
+        cursor.execute('SELECT score FROM scores WHERE fid=? AND month_name=?', (fid, key))
+        if cursor.fetchone():
+            cursor.execute('UPDATE scores SET score=? WHERE fid=? AND month_name=?', (wellness_scores[key], fid, key))
+        else:
+            cursor.execute('INSERT INTO scores (fid, month_name, score) VALUES (?,?,?)', (fid, key, wellness_scores[key]))
+    return
+
+def model_get_wellness_scores(fid):
+    cursor = get_db().cursor()
+    cursor.execute('SELECT month_name, score FROM scores WHERE fid=?', (fid,))
+    data = cursor.fetchall()
+
+    score_dict = {}
+    for item in data:
+        score_dict[data['month_name']] = data['score']
+
+    return score_dict

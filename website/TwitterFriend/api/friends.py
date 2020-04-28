@@ -43,7 +43,6 @@ def friend_list():
         friend["url"] = "/api/f/" + str(friend["fid"]) + "/"
         context["friends"].append(friend)
 
-    print(context)
     return flask.jsonify(**context)
 
 def get_friends(screen_name):

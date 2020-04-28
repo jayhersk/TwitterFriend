@@ -22,6 +22,7 @@ setup(
         'selenium',
         'requests',
         'arrow',
-        'tweepy'
+        'tweepy',
+        'vaderSentiment'
     ],
 )
