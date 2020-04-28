@@ -1,9 +1,10 @@
 # si660
 
 #### Table of Contents  
-[Running Website Locally](#run-local)   
+[Running Website Locally](#run-local)
+[Deploying Website to Server](#run-server) 
    
-### Running website locally:
+### Running Website Locally:
 <a name="run-local"/>
 
 1. Set up python virtual environment in website directory
@@ -32,3 +33,6 @@ chmod 755 TwitterFriendRun
 bin/TwitterFriendDB create
 bin/TwitterFriendRun
 ```
+
+### Deploying Website to Server:
+<a name="run-server"/>
