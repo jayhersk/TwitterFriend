@@ -26,7 +26,7 @@ Additionally, motivated by the paper “Modeling Stress with Social Media Around
 ### Wellness Scores:
 <a name="well"/>
 
-Given issues around the pracicality of implemeting the same classifier (unable to get labeled training data, not wanting to classify medical depression without user consent), we repurpose some of the features from De Choudhury et al.'s paper to create a more general 'wellness score' for a user:
+Given issues around the practicality of implemeting the same classifier (unable to get labeled training data, not wanting to classify medical depression without user consent), we repurpose some of the features from De Choudhury et al.'s paper to create a more general 'wellness score' for a user:
 
 1. The sentiment of their Tweets (positive, neutral, or negative), which we identify using `vaderSentiment`.
 2. The amount that a user Tweets in the middle of the night (the 'insomnia index').
