@@ -1,4 +1,6 @@
-# si660
+# si660: TwitterFriend 🤖💖
+A tool to help you help your friends!
+Demo video: https://youtu.be/RBC5JVvvieM
 
 #### Table of Contents  
 [Running Website Locally](#run-local)
