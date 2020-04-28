@@ -2,6 +2,7 @@
 
 #### Table of Contents  
 [Running Website Locally](#run-local)
+
 [Deploying Website to Server](#run-server) 
    
 ### Running Website Locally:
